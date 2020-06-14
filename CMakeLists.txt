@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.10)
+project(seed LANGUAGES C)
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -g -O3 -static-libgcc")
+find_package(Threads REQUIRED)
+add_executable(main layers.c generator.c finders.c find_quadhuts.c)
+target_link_libraries(main Threads::Threads)
+target_link_libraries(main m)
+add_executable(mainFinder layers.c generator.c finders.c main.c)
