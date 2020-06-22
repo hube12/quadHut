@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
     int regPosX = 0;
     int regPosZ = 0;
 
-    int mcversion = 0;
+    int mcversion = MC_1_7;
     const char *seedFileName;
     StructureConfig featureConfig;
     FILE *file = fopen("save.txt", "a");
@@ -99,12 +99,12 @@ int main(int argc, char *argv[]) {
         if (sscanf(argv[2], "%d", &regPosZ) != 1) regPosZ = 0;
 
         if (argc > 3) {
-            if (sscanf(argv[3], "%d", &mcversion) != 1) mcversion = 0;
+            if (sscanf(argv[3], "%d", &mcversion) != 1) mcversion = MC_1_7;
         } else {
             printf("MC version not specified. Set using 'mcversion' argument:\n"
                    "17  for MC1.7 - MC1.12\n113 for MC1.13+\n"
                    "Defaulting to MC 1.7.\n\n");
-            mcversion = 17;
+            mcversion = MC_1_7;
         }
     } else {
         char *endptr;
@@ -114,11 +114,7 @@ int main(int argc, char *argv[]) {
         mcversion = parse_version(res);
         if (mcversion == MC_LEG) {
             printf("You didnt use a correct version, defaulting to 1.7-1.12\n");
-            mcversion = 17;
-        } else if (mcversion <= MC_1_12) {
-            mcversion = 17;
-        } else {
-            mcversion = 113;
+            mcversion = MC_1_7;
         }
 
         printf("Please input the relative X position you want the quad witch hut in your world (in blocks)\n");
@@ -153,7 +149,7 @@ int main(int argc, char *argv[]) {
         regPosZ = (int) (posZ / 16 / 32);
     }
 
-    if (mcversion >= 113) {
+    if (mcversion >= MC_1_13) {
         featureConfig = SWAMP_HUT_CONFIG;
         seedFileName = "./quadhutbases_1_13_Q1.txt";
         // setupGeneratorMC113() biome generation is slower and unnecessary.
@@ -199,7 +195,8 @@ int main(int argc, char *argv[]) {
     int areaX = (regPosX << 1) + 1;
     int areaZ = (regPosZ << 1) + 1;
 
-
+    fprintf(file,"Using version: %s at position %lld %lld (region: %d %d)\n",versions[mcversion],(long long)regPosX*16*32,(long long)regPosZ*16*32,regPosX,regPosZ);
+    printf("Using version: %s at position %lld %lld (region: %d %d)\n",versions[mcversion],(long long)regPosX*16*32,(long long)regPosZ*16*32,regPosX,regPosZ);
     // Search for a swamp at the structure positions
     for (i = 0; i < qhcnt; i++) {
         base = moveStructure(qhcandidates[i], regPosX, regPosZ);

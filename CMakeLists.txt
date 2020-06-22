@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(seed LANGUAGES C)
+project(QuadHutSeedFinder LANGUAGES C)
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -g -O3 -static-libgcc")
 find_package(Threads REQUIRED)
 add_executable(QuadHutFinder layers.c generator.c finders.c find_quadhuts.c)
