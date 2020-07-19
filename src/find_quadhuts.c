@@ -7,8 +7,6 @@
  */
 
 #include "finders.h"
-#include "generator.h"
-#include "layers.h"
 
 #include <unistd.h>
 #include <errno.h>
@@ -279,6 +277,8 @@ int main(int argc, char *argv[]) {
             if (getBiomeAtPos(g, qhpos[1]) != Swamp) continue;
             if (getBiomeAtPos(g, qhpos[2]) != Swamp) continue;
             if (getBiomeAtPos(g, qhpos[3]) != Swamp) continue;
+
+
             fprintf(file, "%" PRId64 "\n", seed);
             printf("%" PRId64 "\n", seed);
 
